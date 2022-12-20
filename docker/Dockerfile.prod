@@ -1,0 +1,9 @@
+FROM python:3.11-alpine as builder
+ENV PYTHONUNBUFFERED 1
+RUN apk add --no-cache bash postgresql-dev linux-headers gcc musl-dev build-base libmagic
+WORKDIR /usr/src/app
+COPY ./requirements.txt ./
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt && export REVISION=echo $REVISION
+COPY . .
+CMD ["./bin/start"]

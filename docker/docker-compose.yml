@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  todo_challenge_db:
+    image: postgres:15.1-alpine
+    volumes:
+      - todo_challenge_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_PASSWORD: invera
+      POSTGRES_USER: invera
+      POSTGRES_DB: invera
+    container_name: todo_challenge_db
+    ports:
+      - 5432:5432
+  todo_challenge_backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.prod
+    volumes:
+      - ../:/usr/src/app/
+    expose:
+      - 8000
+    environment:
+      POSTGRES_NAME: invera
+      POSTGRES_USER: invera
+      POSTGRES_PASSWORD: invera
+      POSTGRES_HOST: todo_challenge_db
+      POSTGRES_PORT: 5432
+      DJANGO_SETTINGS_MODULE: todo_challenge.settings
+      DJANGO_SECRET_KEY: ClaveSecreta
+      DJANGO_MODE_DEBUG: 0
+    depends_on:
+      - todo_challenge_db
+    container_name: todo_challenge_backend
+  nginx:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.nginx.prod
+    depends_on:
+      - todo_challenge_backend
+    container_name: todo_challenge_nginx
+    ports:
+      - 8080:80
+volumes:
+  todo_challenge_data:
