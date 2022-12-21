@@ -23,3 +23,5 @@ class SecuritySettings(BaseSettings):
     DEBUG = os.environ.get('DJANGO_MODE_DEBUG', 0)
 
     ALLOWED_HOSTS = ['*']
+
+    CORS_ORIGIN_ALLOW_ALL = True

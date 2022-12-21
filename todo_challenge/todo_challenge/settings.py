@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from todo_challenge.particular_settings.bdd import BDDSettings
+from todo_challenge.particular_settings.rest import RestSettings
 from todo_challenge.particular_settings.time_internalization import (
     TimeAndInternalizationSettings
 )
@@ -16,6 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 class Settings(
         BDDSettings,
+        RestSettings,
         TimeAndInternalizationSettings,
         SecuritySettings,
         StaticFilesSettings,
@@ -29,7 +31,11 @@ class Settings(
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'rest_framework',
-        'to_do.apps.ToDoConfig'
+        'to_do.apps.ToDoConfig',
+        'user.apps.UserConfig',
+        'django_filters',
+        'oauth2_provider',
+        'corsheaders',
     ]
 
     MIDDLEWARE = [
@@ -40,11 +46,13 @@ class Settings(
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
     ]
 
     ROOT_URLCONF = 'todo_challenge.urls'
 
     WSGI_APPLICATION = 'todo_challenge.wsgi.application'
+
 
 
 __getattr__, __dir__ = Settings.use()

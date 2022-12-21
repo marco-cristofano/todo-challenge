@@ -1,22 +1,29 @@
 from datetime import datetime
 from rest_framework.test import APITestCase
+from django.contrib.auth.models import User
 from to_do.models import ToDo
 
 
 class UpdateToDoTest(APITestCase):
     url = '/api/to_do/'
+    fixtures = (
+        'user/fixtures/user.json',
+        'to_do/fixtures/to_do.json',
+    )
     body = {
         'title': 'titulo',
         'description': 'descripcion',
         'completed': True
-
     }
 
     def setUp(self):
+        user = User.objects.get(username='user')
+        self.client.force_authenticate(user=user)
         self.to_do = ToDo.objects.create(
             title='titulo1',
             description='descripcion1',
-            completed=False
+            completed=False,
+            user=user
         )
 
     def _get_url(self, id):
@@ -53,6 +60,10 @@ class UpdateToDoTest(APITestCase):
 
 class UpdateToDoErrorTest(APITestCase):
     url = '/api/to_do/'
+    fixtures = (
+        'user/fixtures/user.json',
+        'to_do/fixtures/to_do.json',
+    )
     body = {
         'title': 'titulo',
         'description': 'descripcion',
@@ -61,10 +72,13 @@ class UpdateToDoErrorTest(APITestCase):
     }
 
     def setUp(self):
+        user = User.objects.get(username='user')
+        self.client.force_authenticate(user=user)
         self.to_do = ToDo.objects.create(
             title='titulo1',
             description='descripcion1',
-            completed=False
+            completed=False,
+            user=user
         )
 
     def _get_url(self, id):
@@ -92,3 +106,33 @@ class UpdateToDoErrorTest(APITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertContains(response, 'title', 1, status_code=400)
         self.assertContains(response, 'required', 1, status_code=400)
+
+
+class UpdateWhitoutCredentialsTest(APITestCase):
+    url = '/api/to_do/'
+    fixtures = (
+        'user/fixtures/user.json',
+        'to_do/fixtures/to_do.json',
+    )
+    body = {
+        'title': 'titulo',
+        'description': 'descripcion',
+        'completed': True
+    }
+
+    def setUp(self):
+        user = User.objects.get(username='user')
+        self.to_do = ToDo.objects.create(
+            title='titulo1',
+            description='descripcion1',
+            completed=False,
+            user=user
+        )
+
+    def _get_url(self, id):
+        return self.url + str(id) + '/'
+
+    def test_protect(self):
+        url = self._get_url(self.to_do.id)
+        response = self.client.put(url, self.body)
+        self.assertEqual(response.status_code, 401)

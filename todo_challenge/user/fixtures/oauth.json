@@ -1,0 +1,19 @@
+[
+{
+    "model": "oauth2_provider.application",
+    "pk": 1,
+    "fields": {
+        "client_id": "client_id",
+        "user": null,
+        "redirect_uris": "http://127.0.0.1:8080/api/to_do/",
+        "client_type": "confidential",
+        "authorization_grant_type": "password",
+        "client_secret": "pbkdf2_sha256$260000$sKtCguRR17peH6iNQC22em$waIAi1vOpNy4Nv+EQ1gGLEt5Y2EUa/sd/Y2xSVBIvKw=",
+        "name": "Local Oauth2",
+        "skip_authorization": false,
+        "created": "2022-12-21T13:07:23.443Z",
+        "updated": "2022-12-21T14:01:02.930Z",
+        "algorithm": ""
+    }
+}
+]

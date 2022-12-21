@@ -1,0 +1,54 @@
+[
+{
+    "model": "to_do.todo",
+    "pk": 1,
+    "fields": {
+        "deleted": false,
+        "title": "titulo1",
+        "description": "descripcion1",
+        "created": "2022-12-19",
+        "last_modification": "2022-12-20T19:27:52.550Z",
+        "completed": false,
+        "user": 1
+    }
+},
+{
+    "model": "to_do.todo",
+    "pk": 2,
+    "fields": {
+        "deleted": false,
+        "title": "titulo2",
+        "description": "descripcion2",
+        "created": "2022-12-20",
+        "last_modification": "2022-12-20T19:28:10.021Z",
+        "completed": true,
+        "user": 1
+    }
+},
+{
+    "model": "to_do.todo",
+    "pk": 3,
+    "fields": {
+        "deleted": false,
+        "title": "titulo_a",
+        "description": "descripcion_a",
+        "created": "2022-12-19",
+        "last_modification": "2022-12-20T19:29:45.471Z",
+        "completed": false,
+        "user": 2
+    }
+},
+{
+    "model": "to_do.todo",
+    "pk": 4,
+    "fields": {
+        "deleted": false,
+        "title": "titulo_b",
+        "description": "descripcion_b",
+        "created": "2022-12-20",
+        "last_modification": "2022-12-20T19:30:00.069Z",
+        "completed": false,
+        "user": 2
+    }
+}
+]
