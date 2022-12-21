@@ -6,6 +6,7 @@ class ToDoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
         fields = (
+            'id',
             'title',
             'description',
             'completed',

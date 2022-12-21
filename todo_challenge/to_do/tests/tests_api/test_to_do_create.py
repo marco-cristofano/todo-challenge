@@ -21,11 +21,12 @@ class CreateToDoTest(APITestCase):
     def test_create_ok(self):
         response = self.client.post(self.url, self.body)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(len(response.data), 6)
         to_do = response.data
         self.assertEqual(to_do['title'], 'titulo')
         self.assertEqual(to_do['description'], 'descripcion')
         self.assertTrue(to_do['completed'])
+        self.assertContains(response, 'id', 1, status_code=201)
         self.assertContains(response, 'created', 1, status_code=201)
         self.assertContains(response, 'last_modification', 1, status_code=201)
 
@@ -33,11 +34,12 @@ class CreateToDoTest(APITestCase):
         body = {'title': 'titulo'}
         response = self.client.post(self.url, body)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(len(response.data), 6)
         to_do = response.data
         self.assertEqual(to_do['title'], 'titulo')
         self.assertEqual(to_do['description'], None)
         self.assertEqual(to_do['completed'], False)
+        self.assertContains(response, 'id', 1, status_code=201)
         self.assertContains(response, 'created', 1, status_code=201)
         self.assertContains(response, 'last_modification', 1, status_code=201)
 

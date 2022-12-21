@@ -23,13 +23,14 @@ class RetrieveToDoTest(APITestCase):
         url = self._get_url(to_do.id)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(len(response.data), 6)
         to_do = response.data
         self.assertEqual(to_do['title'], 'titulo1')
         self.assertEqual(to_do['description'], 'descripcion1')
         self.assertEqual(to_do['completed'], False)
         self.assertContains(response, 'created', 1, status_code=200)
         self.assertContains(response, 'last_modification', 1, status_code=200)
+        self.assertContains(response, 'id', 1, status_code=200)
 
 
 class RetrieveWhitoutCredentialsTest(APITestCase):

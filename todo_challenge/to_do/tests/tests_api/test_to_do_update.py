@@ -33,12 +33,13 @@ class UpdateToDoTest(APITestCase):
         url = self._get_url(self.to_do.id)
         response = self.client.put(url, self.body)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(len(response.data), 6)
         to_do = response.data
         self.assertEqual(to_do['title'], 'titulo')
         self.assertEqual(to_do['description'], 'descripcion')
         self.assertTrue(to_do['completed'])
         self.assertContains(response, 'created', 1, status_code=200)
+        self.assertContains(response, 'id', 1, status_code=200)
         self.assertContains(response, 'last_modification', 1, status_code=200)
         last_modification = datetime.fromisoformat(to_do['last_modification'])
         self.assertTrue(self.to_do.last_modification < last_modification)
@@ -47,13 +48,14 @@ class UpdateToDoTest(APITestCase):
         body = {'title': 'titulo'}
         url = self._get_url(self.to_do.id)
         response = self.client.put(url, body)
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(len(response.data), 6)
         to_do = response.data
         self.assertEqual(to_do['title'], 'titulo')
         self.assertEqual(to_do['description'], 'descripcion1')
         self.assertFalse(to_do['completed'])
         self.assertContains(response, 'created', 1, status_code=200)
         self.assertContains(response, 'last_modification', 1, status_code=200)
+        self.assertContains(response, 'id', 1, status_code=200)
         last_modification = datetime.fromisoformat(to_do['last_modification'])
         self.assertTrue(self.to_do.last_modification < last_modification)
 
