@@ -20,7 +20,7 @@ Si bien el enunciado detallaba los requerimientos de la aplicación, a continuac
 
 ## Infraestructura:
 
-- El backend fue realizado con Django (3.2.14 LTS), Django Rest Framework (3.14.0 Versión mas actual al dia de la fecha).
+- El backend fue realizado con Django (3.2.16), Django Rest Framework (3.14.0 Versión mas actual al dia de la fecha).
 
 - La base de datos es PostgreSQL.
 
