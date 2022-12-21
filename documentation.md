@@ -137,4 +137,14 @@ curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "titl
  curl -X DELETE  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR"  http://localhost:8080/api/to_do/8/
 
  
+## Comentarios del codigo fuente:
+ 
+- Posee cobertura del 100% (sobre las lineas desarrolladas).
 
+- Si bien por la dimensión del proyecto no se necesariamente se justifica, la lógica de negocio de cada aplicación es almacenada en servicios.
+ 
+- El manejo de URL se puede cambiar. Al ser un desarrollo pequeño se encuentra en el propio archivo urls bridando por Django, si el proyecto creciera sería aconsejable:
+    - Opción 1:  Llevar el manejo de urls de la api a una carpeta especifica. 
+    - Opción 2: Delegar el manejo de urls a cada aplicación.
+ 
+- El codigo fue analizado con safety (versión gratuita) y bandit en busca de vulnerabilidades. 
