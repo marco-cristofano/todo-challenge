@@ -38,7 +38,7 @@ Para levantar el proyecto es necesario tener instalado docker y docker-compose. 
 
 3. docker-compose up
 
-* si es la primera vez que se enciende puede que el servicio "todo_challenge_backend" levante antes que "todo_challenge_db" termine su inicialización y al intentarse conectar falle y se caiga. Si esto sucede volver a ejecutar el paso 3.
+* **si es la primera vez que se enciende puede que el servicio "todo_challenge_backend" levante antes que "todo_challenge_db" termine su inicialización y al intentarse conectar falle y se caiga. Si esto sucede volver a ejecutar el paso 3.**
 
 Al levantar el backend carga en la BDD la información necesaria para el correcto funcionamiento de Oauth, dos usuarios de prueba y 4 tareas.
 
