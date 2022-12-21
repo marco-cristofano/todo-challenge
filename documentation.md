@@ -69,6 +69,40 @@ curl -H "Authorization: Bearer <ACCESS_TOKEN>" http://localhost:8080/api/to_do/
 Por ejmeplo:
  
 curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:8080/api/to_do/
+ 
 
+### Búsqueda de tareas
 
+Para las búsqueda de tareas se deben enviar los parametros en la url. Los tres parametros aceptados son: title, description y created. Se puede buscar por un solo parametro o cualquier combinación deseada:
+
+Por ejemplo:
+ 
+curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:8080/api/to_do/?description=descripcion1
+ 
+Si se busca por fecha se debe respetar el formtato 'YYYY-MM-DD'
+ 
+Por ejemplo:
+ 
+curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:8080/api/to_do/?created=2022-12-19
+
+ 
+### Creación de tarea
+ 
+ La creacion de una tarea admite tres campos: title, descripcion y completed. 
+ 
+ - title: campo obligatorio.
+ 
+ - description: campo opcional.
+
+ - completed: campo opcional. Si no se envia por defecto es false.
+ 
+ Los campos created, last_modification y user se manejan de manera transparente al usuario.
+ 
+curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "title=<TITULO>&description=<DESCRIPCION>&completed=<true/false>"  http://localhost:8080/api/to_do/
+ 
+ Por ejemplo:
+ 
+curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "title=titulo_nuevo&description=descripcion_nueva&completed=true"  http://localhost:8080/api/to_do/
+
+ 
 
