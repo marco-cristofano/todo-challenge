@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from todo_challenge.particular_settings.bdd import BDDSettings
+from todo_challenge.particular_settings.logging import LoggingSettings
 from todo_challenge.particular_settings.rest import RestSettings
 from todo_challenge.particular_settings.time_internalization import (
     TimeAndInternalizationSettings
@@ -17,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 class Settings(
         BDDSettings,
+        LoggingSettings,
         RestSettings,
         TimeAndInternalizationSettings,
         SecuritySettings,

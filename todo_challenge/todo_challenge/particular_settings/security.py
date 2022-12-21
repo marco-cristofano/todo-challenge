@@ -18,9 +18,9 @@ class SecuritySettings(BaseSettings):
         },
     ]
 
-    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+    DEBUG = bool(int(os.environ.get('DJANGO_MODE_DEBUG', 0)))
 
-    DEBUG = os.environ.get('DJANGO_MODE_DEBUG', 0)
+    SECRET_KEY = bool(os.environ['DJANGO_SECRET_KEY'])
 
     ALLOWED_HOSTS = ['*']
 

@@ -16,5 +16,5 @@ python manage.py loaddata  to_do/fixtures/to_do.json
 
 # Start server
 echo "Starting server"
-gunicorn -b 0.0.0.0:8000 --reload --workers=3 --threads=3 --worker-connections=1000 --worker-class=gthread --access-logfile - --error-logfile - --log-level debug todo_challenge.wsgi
+gunicorn -b 0.0.0.0:8000 --reload --workers=3 --threads=3 --worker-connections=1000 --worker-class=gthread --capture-output --log-level debug todo_challenge.wsgi
 

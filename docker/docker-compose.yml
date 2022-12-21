@@ -29,6 +29,7 @@ services:
       DJANGO_SETTINGS_MODULE: todo_challenge.settings
       DJANGO_SECRET_KEY: ClaveSecreta
       DJANGO_MODE_DEBUG: 0
+      DJANGO_LOG_LEVEL: DEBUG
     depends_on:
       - todo_challenge_db
     container_name: todo_challenge_backend
