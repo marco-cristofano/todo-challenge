@@ -15,6 +15,8 @@ Si bien el enunciado detallaba los requerimientos de la aplicación, a continuac
 
 4. Cada usuario solo puede ver, editar, marcar como completadas  y eliminar sus propias tareas.
 
+5. Las tareas poseen borrado lógico.
+
 
 ## Infraestructura:
 
@@ -53,9 +55,9 @@ Para ello se puede utilizar un usuario creado por defecto (credenciales user use
 
 curl -X POST -d "grant_type=password&username=user&password=user" -u"client_id:client_secret" http://localhost:8080/o/token/
   
-### Creacion de un usuario
+### Creación de un usuario
 
-Si no se desea utilizar un usuaio de los creados automaticamente, se provee siguiente endpoint para crear uno:
+Si no se desea utilizar un usuario de los creados automaticamente, se provee siguiente endpoint para crear uno:
 
 curl -X POST -d "username=<USER>&password=<PASSWORD>" http://localhost:8080/user/
   
@@ -86,9 +88,9 @@ Por ejemplo:
 curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:8080/api/to_do/?created=2022-12-19
 
  
-### Creación de tarea
+### Creación de una tarea
  
- La creacion de una tarea admite tres campos: title, descripcion y completed. 
+ La creación de una tarea admite tres campos: title, descripcion y completed. 
  
  - title: campo obligatorio.
  
@@ -98,11 +100,41 @@ curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:
  
  Los campos created, last_modification y user se manejan de manera transparente al usuario.
  
-curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "title=<TITULO>&description=<DESCRIPCION>&completed=<true/false>"  http://localhost:8080/api/to_do/
+curl -X POST  -H "Authorization: Bearer <ACCESS_TOKEN>" -d "title=<TITULO>&description=<DESCRIPCION>&completed=<true/false>"  http://localhost:8080/api/to_do/
  
  Por ejemplo:
  
 curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "title=titulo_nuevo&description=descripcion_nueva&completed=true"  http://localhost:8080/api/to_do/
+
+ 
+ ### Actualización de una tarea
+ 
+ La actualización de una tarea admite tres campos: title, descripcion y completed. 
+ 
+ - title: campo obligatorio.
+ 
+  curl -X PUT  -H "Authorization: Bearer <ACCESS_TOKEN>" -d "title=<NUEVO_TITULO>&description=<NUEVA_DESCRIPCION>&completed=<trues/false>"  http://localhost:8080/api/to_do/<ID>/
+ 
+ Por ejemplo:
+ 
+ curl -X PUT  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "title=titulo_nuevo1&description=descripcion_nueva1&completed=false"  http://localhost:8080/api/to_do/8/
+
+ 
+  ### Marcar como completada una tarea
+ 
+  curl -X PUT  -H "Authorization: Bearer <ACCESS_TOKEN>"  http://localhost:8080/api/to_do/<ID>/completed/
+ 
+ Por ejemplo:
+ 
+ curl -X PUT  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR"  http://localhost:8080/api/to_do/8/completed/
+
+ ### Eliminar una tarea
+ 
+ curl -X DELETE  -H "Authorization: Bearer <ACCESS_TOKEN>"  http://localhost:8080/api/to_do/<ID>/
+ 
+ Por ejemplo:
+ 
+ curl -X DELETE  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR"  http://localhost:8080/api/to_do/8/
 
  
 
