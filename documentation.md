@@ -5,13 +5,13 @@ El presente documento contiene la información relevante relacionada a la aplica
 
 ## Funcionalidad:
 
-Si bien el enunciado detallaba los requerimientos de la aplicación, a continuación se listan algunas interpretaciones y decisiones con respecto al mismo:
+Si bien el enunciado detalla los requerimientos de la aplicación, a continuación se listan algunas interpretaciones y decisiones con respecto al mismo:
 
-1. Además del la creacion y eliminación de una tarea se pedía "Marcar tareas como completadas". Se desarrolló un CRUD completo y agregarle un endpoint que solo pasa a estado completada la tarea en cuestión. 
+1. Además de la creación y eliminación de una tarea se pedía "Marcar tareas como completadas". Se desarrolló un CRUD completo y agregarle un endpoint que solo pasa a estado completada la tarea en cuestión. 
 
-2. Con respecto a la autenticación en la charla inicial se me comentó que era una buena idea implemenmtarla con Oauth. Por lo tanto se implementó Oauth dentro del mismo proyecto (no se consume servicios de google, github, twitter, etc).
+2. Con respecto a la autenticación en la charla inicial se me comentó que era una buena idea implementarla con Oauth. Por lo tanto se implementó Oauth dentro del mismo proyecto (no se consumen servicios de google, github, twitter, etc).
 
-3. Se requería permitir la búsqueda por "fecha creación y/o por el contenido de la misma". Considerando que el modelado de una tarea posee un titulo, una descripción, fecha de creacion, fecha y hora de ultima actualizacion, el estado (completada o no) y usuario, la búsqueda se posibilita por fecha de creacion, descripcion y titulo. 
+3. Se requería permitir la búsqueda por "fecha creación y/o por el contenido de la misma". Considerando que el modelado de una tarea posee un título, una descripción, fecha de creación, fecha y hora de última actualización, el estado (completada o no) y usuario, la búsqueda se posibilita por fecha de creación, descripción y título. 
 
 4. Cada usuario solo puede ver, editar, marcar como completadas  y eliminar sus propias tareas.
 
@@ -20,7 +20,7 @@ Si bien el enunciado detallaba los requerimientos de la aplicación, a continuac
 
 ## Infraestructura:
 
-- El backend fue realizado con Django (3.2.16), Django Rest Framework (3.14.0 Versión mas actual al dia de la fecha).
+- El backend fue realizado con Django (3.2.16), Django Rest Framework (3.14.0 Versión más actual al día de la fecha).
 
 - La base de datos es PostgreSQL.
 
@@ -45,7 +45,7 @@ Al levantar el backend carga en la BDD la información necesaria para el correct
 
 ## Endpoints disponibles
 
- Todos los endpoints se encuentran protegidos, es decir, requieren usuarios atenticados.
+ Todos los endpoints se encuentran protegidos, es decir, requieren usuarios autenticados.
 
 ### Obtención del access_token
 
@@ -57,7 +57,7 @@ curl -X POST -d "grant_type=password&username=user&password=user" -u"client_id:c
   
 ### Creación de un usuario
 
-Si no se desea utilizar un usuario de los creados automaticamente, se provee siguiente endpoint para crear uno:
+Si no se desea utilizar un usuario de los creados automáticamente, se provee siguiente endpoint para crear uno:
 
 curl -X POST -d "username=<USER>&password=<PASSWORD>" http://localhost:8080/user/
   
@@ -68,20 +68,20 @@ curl -X POST -d "username=user3&password=user3" http://localhost:8080/user/
 ### Listado de tareas
 curl -H "Authorization: Bearer <ACCESS_TOKEN>" http://localhost:8080/api/to_do/
   
-Por ejmeplo:
+Por ejemplo:
  
 curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:8080/api/to_do/
  
 
 ### Búsqueda de tareas
 
-Para las búsqueda de tareas se deben enviar los parametros en la url. Los tres parametros aceptados son: title, description y created. Se puede buscar por un solo parametro o cualquier combinación deseada:
+Para las búsqueda de tareas se deben enviar los parámetros en la url. Los tres parámetros aceptados son: title, description y created. Se puede buscar por un solo parámetro o cualquier combinación deseada:
 
 Por ejemplo:
  
 curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:8080/api/to_do/?description=descripcion1
  
-Si se busca por fecha se debe respetar el formtato 'YYYY-MM-DD'
+Si se busca por fecha se debe respetar el formato 'YYYY-MM-DD'
  
 Por ejemplo:
  
@@ -90,7 +90,7 @@ curl -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" http://localhost:
  
 ### Creación de una tarea
  
- La creación de una tarea admite tres campos: title, descripcion y completed. 
+ La creación de una tarea admite tres campos: title, description y completed. 
  
  - title: campo obligatorio.
  
@@ -109,7 +109,7 @@ curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "titl
  
  ### Actualización de una tarea
  
- La actualización de una tarea admite tres campos: title, descripcion y completed. 
+ La actualización de una tarea admite tres campos: title, description y completed. 
  
  - title: campo obligatorio.
  
@@ -137,14 +137,14 @@ curl -X POST  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR" -d "titl
  curl -X DELETE  -H "Authorization: Bearer 3NyAOIPXMPjdWz0GpiQIZSPUWNislR"  http://localhost:8080/api/to_do/8/
 
  
-## Comentarios del codigo fuente:
+## Comentarios del código fuente:
  
-- Posee cobertura del 100% (sobre las lineas desarrolladas).
+- Posee cobertura del 100% (sobre las líneas desarrolladas).
 
 - Si bien por la dimensión del proyecto no se necesariamente se justifica, la lógica de negocio de cada aplicación es almacenada en servicios.
  
-- El manejo de URL se puede cambiar. Al ser un desarrollo pequeño se encuentra en el propio archivo urls bridando por Django, si el proyecto creciera sería aconsejable:
-    - Opción 1:  Llevar el manejo de urls de la api a una carpeta especifica. 
+- El manejo de URL se puede cambiar. Al ser un desarrollo pequeño se encuentra en el propio archivo urls brindado por Django, si el proyecto creciera sería aconsejable:
+    - Opción 1:  Llevar el manejo de urls de la api a una carpeta específica. 
     - Opción 2: Delegar el manejo de urls a cada aplicación.
  
-- El codigo fue analizado con safety (versión gratuita) y bandit en busca de vulnerabilidades. 
+- El cdigo fue analizado con safety (versión gratuita) y bandit en busca de vulnerabilidades. 
